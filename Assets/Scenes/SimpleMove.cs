@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SimpleMove : MonoBehaviour
 {
+    public Camera mainCamera = null;
     public float speed = 1;
     public float pitchSpeed = 1;
     public float yawSpeed = 1;
@@ -19,7 +20,9 @@ public class SimpleMove : MonoBehaviour
     {
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
-        transform.localPosition = new Vector3(transform.localPosition.x + x * speed * Time.deltaTime, transform.localPosition.y, transform.localPosition.z + z * speed * Time.deltaTime);
+        Vector3 forward = transform.transform.forward * z * speed * Time.deltaTime;
+        Vector3 right = transform.transform.right * x * speed * Time.deltaTime;
+        transform.localPosition += forward + right;
         float Y = transform.localEulerAngles.y;
         float X = transform.localEulerAngles.x;
         float Z = transform.localEulerAngles.z;
